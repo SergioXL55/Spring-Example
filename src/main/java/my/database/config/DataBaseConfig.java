@@ -1,28 +1,17 @@
 package my.database.config;
 
-import my.database.service.AccountService;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
-import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.datasource.embedded.DataSourceFactory;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import org.springframework.orm.jpa.DefaultJpaDialect;
-import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.event.TransactionalEventListener;
 
-import javax.transaction.TransactionManager;
 import java.util.Properties;
 
 /**
@@ -32,15 +21,15 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan("my.database")
-@PropertySource(value="classpath:property.properties")
+@PropertySource(value = "classpath:property.properties")
 public class DataBaseConfig {
 
-@Autowired
-Environment environment;
+    @Autowired
+    Environment environment;
 
     @Bean
-    public DriverManagerDataSource dataSource(){
-        DriverManagerDataSource dataSource=new DriverManagerDataSource();
+    public DriverManagerDataSource dataSource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(environment.getProperty("jdbc.driverClassName"));
         dataSource.setUrl(environment.getProperty("jdbc.url"));
         dataSource.setUsername(environment.getProperty("jdbc.username"));
@@ -50,20 +39,20 @@ Environment environment;
     }
 
     @Bean
-    public LocalSessionFactoryBean localSession(){
-        LocalSessionFactoryBean localession=new LocalSessionFactoryBean();
+    public LocalSessionFactoryBean localSession() {
+        LocalSessionFactoryBean localession = new LocalSessionFactoryBean();
         localession.setPackagesToScan(environment.getProperty("hibernate.entity"));
         localession.setDataSource(dataSource());
-        Properties prop=new Properties();
-        prop.put("dialect",environment.getProperty("hibernate.dialect"));
+        Properties prop = new Properties();
+        prop.put("dialect", environment.getProperty("hibernate.dialect"));
         localession.setHibernateProperties(prop);
         return localession;
     }
 
     @Autowired
     @Bean
-    public HibernateTransactionManager transactionManager(SessionFactory localSessionFactoryBean){
-        HibernateTransactionManager tx=new HibernateTransactionManager();
+    public HibernateTransactionManager transactionManager(SessionFactory localSessionFactoryBean) {
+        HibernateTransactionManager tx = new HibernateTransactionManager();
         tx.setSessionFactory(localSessionFactoryBean);
         return tx;
     }

@@ -2,7 +2,6 @@ package my.database.service;
 
 import my.database.entity.Account;
 import my.database.implement.AccountTable;
-import my.database.implement.SqlTable;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

@@ -5,10 +5,10 @@ package my.security.config;
  */
 public interface PremissionSetting {
 
-    String ROLE_PREFIX="ROLE.";
-    String ANONIMUS_USER="ANON";
-    String ROLE_SA="SA";
-    String ROLE_USER="USER";
-    String ROLE_ADMIN="ADMIN";
+    String ROLE_PREFIX = "ROLE.";
+    String ANONIMUS_USER = "ANON";
+    String ROLE_SA = "SA";
+    String ROLE_USER = "USER";
+    String ROLE_ADMIN = "ADMIN";
 
 }

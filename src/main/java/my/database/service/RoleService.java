@@ -1,7 +1,6 @@
 package my.database.service;
 
 import my.database.implement.RoleTable;
-import my.database.implement.SqlTable;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -33,9 +32,9 @@ public class RoleService implements RoleTable {
 
     @Override
     public List<Object> getAll() {
-       Session session=sessionFactory.getCurrentSession();
-       Query query= session.createQuery("FROM Role");
-       return query.list();
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("FROM Role");
+        return query.list();
     }
 
     @Override

@@ -1,11 +1,8 @@
 package my.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -21,22 +18,22 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter implements PremissionSetting{
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter implements PremissionSetting {
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth, DataSource dataSource) throws Exception{
-       auth.jdbcAuthentication().dataSource(dataSource)
-               .usersByUsernameQuery("Select login as username,password as password,enabled from account where login=?")
+    public void configureGlobal(AuthenticationManagerBuilder auth, DataSource dataSource) throws Exception {
+        auth.jdbcAuthentication().dataSource(dataSource)
+                .usersByUsernameQuery("Select login as username,password as password,enabled from account where login=?")
                 .authoritiesByUsernameQuery("Select login as username,role.role as role ,enabled from account,role where (account.role=role.id and login=?)")
-               .rolePrefix("ROLE_")
-               .passwordEncoder(passwordEncoder());
+                .rolePrefix("ROLE_")
+                .passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/login","/reg").permitAll()
-                .antMatchers("/sa").hasAnyRole(ROLE_SA,ROLE_ADMIN)
+                .antMatchers("/login", "/reg").permitAll()
+                .antMatchers("/sa").hasAnyRole(ROLE_SA, ROLE_ADMIN)
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -46,8 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter implemen
                 .and()
                 .logout().logoutSuccessUrl("/login")
                 .and()
-                .sessionManagement().maximumSessions(1)
-                ;
+                .sessionManagement().maximumSessions(1);
     }
 
     @Bean

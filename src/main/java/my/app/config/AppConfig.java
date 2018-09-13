@@ -2,7 +2,6 @@ package my.app.config;
 
 import my.database.implement.AccountTable;
 import my.database.implement.RoleTable;
-import my.database.implement.SqlTable;
 import my.database.service.AccountService;
 import my.database.service.RoleService;
 import org.hibernate.SessionFactory;
