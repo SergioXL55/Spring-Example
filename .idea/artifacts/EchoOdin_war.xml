@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="EchoOdin:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="EchoOdin-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="EchoOdin:war exploded" />
+    </root>
+  </artifact>
+</component>
